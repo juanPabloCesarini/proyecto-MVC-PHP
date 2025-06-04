@@ -7,8 +7,9 @@
 
         public function obtenerVistasControlador($vista){
 
-            if ($vista!="") {
+            if ($vista!=" ") {
                 $respuesta =$this->obtenerVistasModelo($vista);
+                
             } else {
                 $respuesta ="login";
             }
