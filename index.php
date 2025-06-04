@@ -14,7 +14,20 @@
 <head>
    <?php require_once "./app/views/inc/head.php";?>
 </head>
+<body>
+    <?php 
+        use app\controllers\viewsController;
 
-    <?php require_once "./app/views/inc/script.php";?>
+        $viewsController=new viewsController();
+        $vista =$viewsController->obtenerVistasControlador($url[0]);
+        
+        if ($vista=="login" || $vista=="404") {
+            require_once "./app/views/content/".$vista."-view.php";
+        } else {
+            require_once $vista;
+        }
+        
+
+        require_once "./app/views/inc/script.php";?>
 </body>
 </html>

@@ -1,0 +1,2 @@
+<h1>LA VISTA NO EXISTE</h1>
+<h3>404</h3>

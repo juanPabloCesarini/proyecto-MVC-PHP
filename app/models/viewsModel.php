@@ -5,7 +5,7 @@
 
         protected function obtenerVistasModelo($vista){
 
-            $listaBlanca["dahsboard"];
+            $listaBlanca=["dashboard"];
 
             if (in_array($vista,$listaBlanca)) {
                 if (is_file("./app/views/content/".$vista."-view.php")) {
