@@ -5,7 +5,7 @@
 
         protected function obtenerVistasModelo($vista){
             
-            $listaBlanca=["dashboard"];
+            $listaBlanca=["dashboard","userNew","userList","userSearch","userUpdate","userFoto","logOut"];
 
             if (in_array($vista,$listaBlanca)) {
               
