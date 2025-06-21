@@ -27,10 +27,12 @@ formularios_ajax.forEach((formularios) => {
         };
 
         fetch(action, config)
-          .then((respuesta) => respuesta.json())
-          .then((respuesta) => {
+        .then(respuesta => respuesta.json())
+        .then(respuesta => {
             return alertas_ajax(respuesta);
-          });
+        }); 
+
+   
       }
     });
   });
@@ -66,7 +68,7 @@ function alertas_ajax(alerta) {
         document.querySelector(".FormularioAjax").reset();
       }
     });
-  } else if (alerta.tipo=="redireccionar"){
-    window.location.href=alerta.url;
+  } else if (alerta.tipo == "redireccionar") {
+    window.location.href = alerta.url;
   }
 }

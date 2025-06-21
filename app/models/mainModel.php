@@ -30,14 +30,14 @@ class mainModel {
 
         $cadena = trim( $cadena );
 
-        $cadena = striolashes( $cadena );
+        $cadena = stripslashes( $cadena );
 
-        foreach ( $$palabras as $palabra ) {
+        foreach ( $palabras as $palabra ) {
             $cadena = str_ireplace( $palabra, '', $cadena );
             $cadena = trim( $cadena );
-            $cadena = striolashes( $cadena );
+            $cadena = stripslashes( $cadena );
         }
-        return $cadenas;
+        return $cadena;
     }
 
     protected function verificarDatos( $filtro, $cadena ) {
