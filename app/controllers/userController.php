@@ -184,7 +184,7 @@ class userController extends mainModel {
 
             #Extensión de la imagen#
 
-            switch ($mime_content_type( $_FILES[ 'usuario_foto' ][ 'tmp_name' ] )) {
+            switch (mime_content_type( $_FILES[ 'usuario_foto' ][ 'tmp_name' ] )) {
                 case 'image/jpeg':
                     $foto=$foto.".jpeg";
                     break;
@@ -213,5 +213,39 @@ class userController extends mainModel {
             $foto = '';
         }
 
+        $usuario_datos_reg=[
+            ["campo_nombre"=>"nombreUsuario", "campo_marcador"=>":Nombre", "campo_valor"=>$nombre],
+            ["campo_nombre"=>"apellidoUsuario", "campo_marcador"=>":Apellido", "campo_valor"=>$apellido],
+            ["campo_nombre"=>"emailUsuario", "campo_marcador"=>":Email", "campo_valor"=>$email],
+            ["campo_nombre"=>"usuarioUsuario", "campo_marcador"=>":Usuario", "campo_valor"=>$usuario],
+            ["campo_nombre"=>"usuarioClave", "campo_marcador"=>":Clave", "campo_valor"=>$clave],
+            ["campo_nombre"=>"usuarioFoto", "campo_marcador"=>":Foto", "campo_valor"=>$foto],
+            ["campo_nombre"=>"created_at", "campo_marcador"=>":Creado", "campo_valor"=>date("Y-m-d H:i:s")],
+            ["campo_nombre"=>"updated_at", "campo_marcador"=>":Actualizado", "campo_valor"=>date("Y-m-d H:i:s")],
+        ];
+
+        $registrar_usuario=$this->guardarDatos("usuario",$usuario_datos_reg);
+
+        if ($registrar_usuario->rowCount()==1) {
+              $alerta = [
+                    'tipo' => 'limpiar',
+                    'titulo' => 'Usuario registrado',
+                    'texto'=>'El usuario '.$nombre." ".$apellido." se registró con éxito",
+                    'icono'=>'success'
+                ];
+        } else {
+            if(is_file($img_dir.$foto)){
+                chmod($img_dir.$foto,0777);
+                unlink($img_dir.$foto);
+            }
+              $alerta = [
+                    'tipo' => 'simple',
+                    'titulo' => 'Error!',
+                    'texto'=>'No se pudo guardar el usuario',
+                    'icono'=>'error'
+                ];
+        }
+        return json_encode($alerta);
+        
     }
 }
