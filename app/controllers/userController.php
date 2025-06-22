@@ -60,7 +60,7 @@ class userController extends mainModel {
             exit();
         }
 
-           if ( $this->verificarDatos( '[a-zA-Z0-9$@.-]{7,100}', $clave1 ) || $this->verificarDatos( '[a-zA-Z0-9$@.-]{7,100}', $clave2 )  ) {
+        if ( $this->verificarDatos( '[a-zA-Z0-9$@.-]{7,100}', $clave1 ) || $this->verificarDatos( '[a-zA-Z0-9$@.-]{7,100}', $clave2 ) ) {
             $alerta = [
                 'tipo' => 'simple',
                 'titulo' => 'Error!',
@@ -70,6 +70,67 @@ class userController extends mainModel {
             return json_encode( $alerta );
             exit();
         }
+
+        # Verificando Email #
+
+        if ( $email != '' ) {
+            if ( filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+                $check_email = $this->ejecutarConsulta( "SELECT usuario_email FROM usuario WHERE usuario_email='$email'" );
+                if ( $check_email->rowCount()>0 ) {
+                    $alerta = [
+                        'tipo' => 'simple',
+                        'titulo' => 'Error!',
+                        'texto'=>'El email ya exixte!',
+                        'icono'=>'error'
+                    ];
+                    return json_encode( $alerta );
+                    exit();
+                }
+            } else {
+                $alerta = [
+                    'tipo' => 'simple',
+                    'titulo' => 'Error!',
+                    'texto'=>'Se ingresó un email inválido',
+                    'icono'=>'error'
+                ];
+                return json_encode( $alerta );
+                exit();
+            }
+
+        }
+
+        #Verificando Claves #
+
+        if ( $clave1 != $clave2 ) {
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Error!',
+                'texto'=>'Las claves no coinciden',
+                'icono'=>'error'
+            ];
+            return json_encode( $alerta );
+            exit();
+        } else {
+            $clave = password_hash( $clave1, PASSWORD_BCRYPT, [ 'cost'=>10 ] );
+        }
+
+        #Verificando Usuario
+
+        $check_user = $this->ejecutarConsulta( "SELECT usuario_usuario FROM usuario WHERE usuario_usuario='$usuario'" );
+        if ( $check_user->rowCount()>0 ) {
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Error!',
+                'texto'=>'El usuario ya exixte!',
+                'icono'=>'error'
+            ];
+            return json_encode( $alerta );
+            exit();
+        }
+
+        #Directorio de imágenes#
+
+        $img_dir ="../views/fotos/";
 
     }
 }
