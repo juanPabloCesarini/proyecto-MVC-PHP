@@ -49,23 +49,23 @@ class loginController extends mainModel {
                 } else {
                     $check_usuario = $this->ejecutarConsulta( "SELECT * FROM usuario WHERE usuarioUsuario='$usuario'" );
                     if ( $check_usuario->rowCount() == 1 ) {
-                        $check_usuario=$check_usuario->fetch();
-                        if($check_usuario['usuarioUsuario']&& password_verify($clave,$check_usuario['usuarioClave'])){
-                            $_SESSION['id']=$check_usuario['idUsuario'];
-                            $_SESSION['nombre']=$check_usuario['nombreUsuario'];
-                            $_SESSION['apellido']=$check_usuario['apellidoUsuario'];
-                            $_SESSION['usuario']=$check_usuario['usuarioUsuario'];
-                            $_SESSION['foto']=$check_usuario['usuarioFoto'];
+                        $check_usuario = $check_usuario->fetch();
+                        if ( $check_usuario[ 'usuarioUsuario' ] && password_verify( $clave, $check_usuario[ 'usuarioClave' ] ) ) {
+                            $_SESSION[ 'id' ] = $check_usuario[ 'idUsuario' ];
+                            $_SESSION[ 'nombre' ] = $check_usuario[ 'nombreUsuario' ];
+                            $_SESSION[ 'apellido' ] = $check_usuario[ 'apellidoUsuario' ];
+                            $_SESSION[ 'usuario' ] = $check_usuario[ 'usuarioUsuario' ];
+                            $_SESSION[ 'foto' ] = $check_usuario[ 'usuarioFoto' ];
 
-                            if (headers_sent()) {
+                            if ( headers_sent() ) {
                                 echo "<script>
                                         window.location.href='".APP_URL."dashboard/';
                                         </script>";
                             } else {
-                                header("Location: ".APP_URL."dashboard/");
+                                header( 'Location: '.APP_URL.'dashboard/' );
                             }
-                            
-                        }else{
+
+                        } else {
                             echo "
                             <script>
 	                            Swal.fire({
@@ -74,7 +74,8 @@ class loginController extends mainModel {
                                     text: 'Usuario o Clave incorrectos',
                                     confirmButtonText: 'Aceptar',
                                 });
-                            </script>";        
+                            </script>";
+
                         }
                     } else {
                         echo "
@@ -93,5 +94,19 @@ class loginController extends mainModel {
             }
         }
 
+    }
+
+    # Cerrar sesion #
+
+    public function cerrarSesionControlador() {
+        session_destroy();
+
+        if ( headers_sent() ) {
+            echo "<script>
+                    window.location.href='".APP_URL."login/';
+                </script>";
+        } else {
+            header( 'Location: '.APP_URL.'login/' );
+        }
     }
 }
