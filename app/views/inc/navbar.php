@@ -40,14 +40,18 @@
         <div class="navbar-end">
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                    ** User Name **
+                    <?php 
+                    if(!empty($_SESSION)){
+                        echo $_SESSION['nick'];
+                    }
+                    ?>
                 </a>
                 <div class="navbar-dropdown is-boxed">
 
-                    <a class="navbar-item" href="<?php echo APP_URL;?>userUpdate/">
+                    <a class="navbar-item" href="<?php echo APP_URL."userUpdate/".$_SESSION['id']."/";?>">
                         Mi cuenta
                     </a>
-                    <a class="navbar-item" href="<?php echo APP_URL;?>userFoto/">
+                    <a class="navbar-item" href="<?php echo APP_URL."userFoto/".$_SESSION['id']."/";?>">
                         Mi foto
                     </a>
                     <hr class="navbar-divider">

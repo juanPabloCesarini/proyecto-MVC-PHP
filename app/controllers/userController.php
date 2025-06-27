@@ -75,7 +75,7 @@ class userController extends mainModel {
 
         if ( $email != '' ) {
             if ( filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-                $check_email = $this->ejecutarConsulta( "SELECT usuario_email FROM usuario WHERE usuario_email='$email'" );
+                $check_email = $this->ejecutarConsulta( "SELECT email_usuario FROM usuario WHERE email_usuario='$email'" );
                 if ( $check_email->rowCount()>0 ) {
                     $alerta = [
                         'tipo' => 'simple',
@@ -116,7 +116,7 @@ class userController extends mainModel {
 
         #Verificando Usuario
 
-        $check_user = $this->ejecutarConsulta( "SELECT usuario_usuario FROM usuario WHERE usuario_usuario='$usuario'" );
+        $check_user = $this->ejecutarConsulta( "SELECT nick_usuario FROM usuario WHERE nick_usuario='$usuario'" );
         if ( $check_user->rowCount()>0 ) {
             $alerta = [
                 'tipo' => 'simple',
@@ -214,12 +214,12 @@ class userController extends mainModel {
         }
 
         $usuario_datos_reg=[
-            ["campo_nombre"=>"nombreUsuario", "campo_marcador"=>":Nombre", "campo_valor"=>$nombre],
-            ["campo_nombre"=>"apellidoUsuario", "campo_marcador"=>":Apellido", "campo_valor"=>$apellido],
-            ["campo_nombre"=>"emailUsuario", "campo_marcador"=>":Email", "campo_valor"=>$email],
-            ["campo_nombre"=>"usuarioUsuario", "campo_marcador"=>":Usuario", "campo_valor"=>$usuario],
-            ["campo_nombre"=>"usuarioClave", "campo_marcador"=>":Clave", "campo_valor"=>$clave],
-            ["campo_nombre"=>"usuarioFoto", "campo_marcador"=>":Foto", "campo_valor"=>$foto],
+            ["campo_nombre"=>"nombre_usuario", "campo_marcador"=>":Nombre", "campo_valor"=>$nombre],
+            ["campo_nombre"=>"apellido_usuario", "campo_marcador"=>":Apellido", "campo_valor"=>$apellido],
+            ["campo_nombre"=>"email_usuario", "campo_marcador"=>":Email", "campo_valor"=>$email],
+            ["campo_nombre"=>"nick_usuario", "campo_marcador"=>":Usuario", "campo_valor"=>$usuario],
+            ["campo_nombre"=>"clave_usuario", "campo_marcador"=>":Clave", "campo_valor"=>$clave],
+            ["campo_nombre"=>"avatar_usuario", "campo_marcador"=>":Foto", "campo_valor"=>$foto],
             ["campo_nombre"=>"created_at", "campo_marcador"=>":Creado", "campo_valor"=>date("Y-m-d H:i:s")],
             ["campo_nombre"=>"updated_at", "campo_marcador"=>":Actualizado", "campo_valor"=>date("Y-m-d H:i:s")],
         ];

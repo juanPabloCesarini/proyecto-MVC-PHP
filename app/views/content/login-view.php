@@ -20,8 +20,9 @@
 		<p class="has-text-centered mb-4 mt-3">
 			<button type="submit" class="button is-info is-rounded">Iniciar sesion</button>
 		</p>
-
+<a href="<?php echo APP_URL;?>userNew/">Soy nuevo</a>
 	</form>
+	
 </div>
 
 <?php

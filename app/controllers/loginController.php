@@ -47,15 +47,18 @@ class loginController extends mainModel {
                 });
             </script>";
                 } else {
-                    $check_usuario = $this->ejecutarConsulta( "SELECT * FROM usuario WHERE usuarioUsuario='$usuario'" );
+                    $check_usuario = $this->ejecutarConsulta( "SELECT * FROM usuario WHERE nick_usuario='$usuario'" );
+
                     if ( $check_usuario->rowCount() == 1 ) {
                         $check_usuario = $check_usuario->fetch();
-                        if ( $check_usuario[ 'usuarioUsuario' ] && password_verify( $clave, $check_usuario[ 'usuarioClave' ] ) ) {
-                            $_SESSION[ 'id' ] = $check_usuario[ 'idUsuario' ];
-                            $_SESSION[ 'nombre' ] = $check_usuario[ 'nombreUsuario' ];
-                            $_SESSION[ 'apellido' ] = $check_usuario[ 'apellidoUsuario' ];
-                            $_SESSION[ 'usuario' ] = $check_usuario[ 'usuarioUsuario' ];
-                            $_SESSION[ 'foto' ] = $check_usuario[ 'usuarioFoto' ];
+                        
+                        if ( $check_usuario[ 'nick_usuario' ] && password_verify( $clave, $check_usuario[ 'clave_usuario' ] ) ) {
+                            $_SESSION['id'] = $check_usuario['id_usuario'];
+                            $_SESSION['nombre'] = $check_usuario['nombre_usuario'];
+                            $_SESSION['apellido'] = $check_usuario['apellido_usuario'];
+                            $_SESSION['nick'] = $check_usuario['nick_usuario'];
+                            $_SESSION['foto'] = $check_usuario['avatar_usuario'];
+                            
 
                             if ( headers_sent() ) {
                                 echo "<script>
