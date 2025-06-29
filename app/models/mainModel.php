@@ -166,10 +166,10 @@ class mainModel {
             $tabla.='   <li><span class = "pagination-ellipsis">&hellip;</span></li>
                         <li><a class = "pagination-link" href = "'.$url.$numeroPaginas.'/">'.$numeroPaginas.'.</a></li>
                      </ul>
-                     <a class = "pagination-next" href = "'.$url.($paginas+1).'">Siguiente</a>
+                     <a class = "pagination-next" href = "'.$url.($pagina+1).'">Siguiente</a>
                     ';
         }
         $tabla.='</nav>';
-        return tabla;
+        return $tabla;
     }
 }

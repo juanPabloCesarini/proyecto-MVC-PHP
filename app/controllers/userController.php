@@ -261,27 +261,38 @@ class userController extends mainModel {
 
         $pagina = ( isset( $pagina ) && $pagina>0 ) ? ( int ) $pagina : 1 ;
 
-        $inicio = ( $pagina>0 ) ? ( ( $pasgina*$registro )-$registro ) : 0;
+        $inicio = ( $pagina>0 ) ? ( ( $pagina*$registro )-$registro ) : 0;
 
         if ( isset( $busqueda ) && $busqueda != '' ) {
-            $consulta_datos = "SELECT * FROM usuarios
+            $consulta_datos = "SELECT * FROM usuario
                              WHERE 
-                             ((id_usuario !='".$_SESSION[ 'id' ]."' AND id_usuario != 1) AND (nombre_usuario LIKE '%$busqueda%' OR apellido_usuario LIKE '%$busqueda%' OR nick_usuario LIKE '%$busqueda%'))
-                             ORDEY BY apellido_usuario 
+                             id_usuario !='".$_SESSION[ 'id' ]."' AND id_usuario != 1
+                             AND (
+                             nombre_usuario LIKE '%$busqueda%' OR
+                             apellido_usuario LIKE '%$busqueda%' OR 
+                             nick_usuario LIKE '%$busqueda%'
+                             )
+                             ORDER BY apellido_usuario 
                              LIMIT $inicio, $registro";
 
-            $consulta_total = "SELECT COUNT(id_usuario) FROM usuarios
+            $consulta_total = "SELECT COUNT(id_usuario) FROM usuario
                              WHERE 
-                             ((id_usuario !='".$_SESSION[ 'id' ]."' AND id_usuario != 1) AND (nombre_usuario LIKE '%$busqueda%' OR apellido_usuario LIKE '%$busqueda%' OR nick_usuario LIKE '%$busqueda%'))";
+                             id_usuario !='".$_SESSION[ 'id' ]."' AND id_usuario != 1
+                             AND (
+                             nombre_usuario LIKE '%$busqueda%' OR 
+                             apellido_usuario LIKE '%$busqueda%' OR 
+                             nick_usuario LIKE '%$busqueda%'
+                             )";
         } else {
-            $consulta_datos = "SELECT * FROM usuarios WHERE id_usuario !='".$_SESSION[ 'id' ]."' AND id_usuario != 1 ORDEY BY apellido_usuario LIMIR $inicio, $registro";
+            $consulta_datos = "SELECT * FROM usuario WHERE id_usuario !='".$_SESSION[ 'id' ]."' AND id_usuario != 1 ORDER BY apellido_usuario LIMIT $inicio, $registro";
 
-            $consulta_total = "SELECT COUNT(id_usuario) FROM usuarios WHERE id_usuario !='".$_SESSION[ 'id' ]."' AND id_usuario != 1";
+            $consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE id_usuario !='".$_SESSION[ 'id' ]."' AND id_usuario != 1";
         }
 
         $datos = $this->ejecutarConsulta( $consulta_datos );
+        
         $datos = $datos->fetchAll();
-
+        
         $total = $this->ejecutarConsulta( $consulta_total );
         $total = ( int ) $total->fetchColumn();
 
